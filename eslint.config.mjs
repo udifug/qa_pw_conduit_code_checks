@@ -12,29 +12,19 @@ export default defineConfig([
       '**/playwright-report/**',
     ],
   },
-
   { languageOptions: { globals: globals.node } },
-
   {
     files: ['**/*.{js,mjs,cjs}'],
     plugins: {
       js,
       playwright,
     },
-    extends: ['js/recommended'],
     rules: {
       ...js.configs.recommended.rules,
       ...playwright.configs['flat/recommended'].rules,
-      'no-unused-vars': 'error',
-      'max-len': [
-        'error',
-        {
-          code: 80,
-          comments: 80,
-        },
-      ],
+      'no-unused-vars': ['error', { argsIgnorePattern: '^page$' }],
       'playwright/expect-expect': 'off',
+      ...eslintConfigPrettier.rules,
     },
   },
-  eslintConfigPrettier,
 ]);
